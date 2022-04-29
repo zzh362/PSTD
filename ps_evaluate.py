@@ -1,12 +1,14 @@
 """Evaluate directional marking point detector."""
 import json
 import os
+import math
 import cv2 as cv
 import numpy as np
 import torch
 import config
 import util
 from data import match_slots, Slot
+from data.struct import direction_diff
 from model import DirectionalPointDetector
 from inference import detect_marking_points, inference_slots
 
@@ -25,8 +27,8 @@ def get_ground_truths(label):
     for slot in slots:
         mark_a = marks[slot[0] - 1]
         mark_b = marks[slot[1] - 1]
-        coords = np.array([mark_a[0], mark_a[1], mark_b[0], mark_b[1]])
-        coords = (coords - 0.5) / 600
+        angle = slot[3] * math.pi / 180
+        coords = np.array([(mark_a[0]-0.5)/600, (mark_a[1]-0.5)/600, (mark_b[0]-0.5)/600, (mark_b[1]-0.5)/600, angle])
         ground_truths.append(Slot(*coords))
     return ground_truths
 
@@ -62,8 +64,13 @@ def psevaluate_detector(args):
             point_a = marking_points[slot[0]]
             point_b = marking_points[slot[1]]
             prob = min((pred_points[slot[0]][0], pred_points[slot[1]][0]))
+            vector = np.array([point_b.x - point_a.x, point_b.y - point_a.y])
+            vec_direct = math.atan2(vector[1], vector[0])
+            angle = direction_diff(vec_direct, slot[2])
+            if slot[2] == 90:
+                angle = math.pi/2
             pred_slots.append(
-                (prob, Slot(point_a.x, point_a.y, point_b.x, point_b.y)))
+                (prob, Slot(point_a.x, point_a.y, point_b.x, point_b.y, angle)))
         predictions_list.append(pred_slots)
 
         with open(os.path.join(args.label_directory, label_file), 'r') as file:

@@ -43,11 +43,16 @@ def generate_objective(marking_points_batch, device):
             objective[batch_idx, 2, row, col] = marking_point.x*16 - col
             objective[batch_idx, 3, row, col] = marking_point.y*16 - row
             # Direction Regression
-            direction = marking_point.direction
-            objective[batch_idx, 4, row, col] = math.cos(direction)
-            objective[batch_idx, 5, row, col] = math.sin(direction)
+            direction0 = marking_point.direction0
+            objective[batch_idx, 4, row, col] = math.cos(direction0)
+            objective[batch_idx, 5, row, col] = math.sin(direction0)
+            direction1 = marking_point.direction1
+            objective[batch_idx, 6, row, col] = math.cos(direction1)
+            objective[batch_idx, 7, row, col] = math.sin(direction1)
+            # Marking Point Type Regression
+            objective[batch_idx, 8, row, col] = marking_point.type
             # Assign Gradient
-            gradient[batch_idx, 1:6, row, col].fill_(1.)
+            gradient[batch_idx, 1:9, row, col].fill_(1.)
     return objective, gradient
 
 

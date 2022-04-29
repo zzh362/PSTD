@@ -2,6 +2,8 @@
 
 This is the implementation of [DMPR-PS](https://github.com/Teoge/DMPR-PS/blob/master/DMPR-PS.pdf) using PyTorch.
 
+Add slant support and change model output layer
+
 ## Requirements
 
 * PyTorch

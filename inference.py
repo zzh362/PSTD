@@ -16,17 +16,26 @@ def plot_points(image, pred_points):
         return
     height = image.shape[0]
     width = image.shape[1]
+    image_size = max(height, width)
     for confidence, marking_point in pred_points:
-        p0_x = width * marking_point.x - 0.5
-        p0_y = height * marking_point.y - 0.5
-        cos_val = math.cos(marking_point.direction)
-        sin_val = math.sin(marking_point.direction)
+        p0_x = image_size * marking_point.x - 0.5
+        p0_y = image_size * marking_point.y - 0.5
+        cos_val = math.cos(marking_point.direction0)
+        sin_val = math.sin(marking_point.direction0)
         p1_x = p0_x + 50*cos_val
         p1_y = p0_y + 50*sin_val
-        p2_x = p0_x - 50*sin_val
-        p2_y = p0_y + 50*cos_val
-        p3_x = p0_x + 50*sin_val
-        p3_y = p0_y - 50*cos_val
+        if marking_point.type < 0.5:
+            p2_x = p0_x - 50*sin_val
+            p2_y = p0_y + 50*cos_val
+            p3_x = p0_x + 50*sin_val
+            p3_y = p0_y - 50*cos_val
+        else:
+            cos_val = math.cos(marking_point.direction1)
+            sin_val = math.sin(marking_point.direction1)
+            p2_x = p0_x + 50*cos_val
+            p2_y = p0_y + 50*sin_val
+            p3_x = p0_x - 50*cos_val
+            p3_y = p0_y - 50*sin_val
         p0_x = int(round(p0_x))
         p0_y = int(round(p0_y))
         p1_x = int(round(p1_x))
@@ -51,24 +60,34 @@ def plot_slots(image, pred_points, slots):
     marking_points = list(list(zip(*pred_points))[1])
     height = image.shape[0]
     width = image.shape[1]
+    image_size = max(height, width)
     for slot in slots:
         point_a = marking_points[slot[0]]
         point_b = marking_points[slot[1]]
-        p0_x = width * point_a.x - 0.5
-        p0_y = height * point_a.y - 0.5
-        p1_x = width * point_b.x - 0.5
-        p1_y = height * point_b.y - 0.5
-        vec = np.array([p1_x - p0_x, p1_y - p0_y])
-        vec = vec / np.linalg.norm(vec)
-        distance = calc_point_squre_dist(point_a, point_b)
-        if config.VSLOT_MIN_DIST <= distance <= config.VSLOT_MAX_DIST:
-            separating_length = config.LONG_SEPARATOR_LENGTH
-        elif config.HSLOT_MIN_DIST <= distance <= config.HSLOT_MAX_DIST:
-            separating_length = config.SHORT_SEPARATOR_LENGTH
-        p2_x = p0_x + height * separating_length * vec[1]
-        p2_y = p0_y - width * separating_length * vec[0]
-        p3_x = p1_x + height * separating_length * vec[1]
-        p3_y = p1_y - width * separating_length * vec[0]
+        p0_x = image_size * point_a.x - 0.5
+        p0_y = image_size * point_a.y - 0.5
+        p1_x = image_size * point_b.x - 0.5
+        p1_y = image_size * point_b.y - 0.5
+        if slot[2] != 90:
+            cos_val = math.cos(slot[2])
+            sin_val = math.sin(slot[2])
+            separating_length = config.SLANT_SEPARATOR_LENGTH * config.RATIO
+            p2_x = p0_x + image_size * separating_length * cos_val
+            p2_y = p0_y + image_size * separating_length * sin_val
+            p3_x = p1_x + image_size * separating_length * cos_val
+            p3_y = p1_y + image_size * separating_length * sin_val
+        else:
+            vec = np.array([p1_x - p0_x, p1_y - p0_y])
+            vec = vec / np.linalg.norm(vec)
+            distance = calc_point_squre_dist(point_a, point_b)
+            if config.VSLOT_MIN_DIST * config.SQUARED_RATIO <= distance <= config.VSLOT_MAX_DIST * config.SQUARED_RATIO:
+                separating_length = config.LONG_SEPARATOR_LENGTH * config.RATIO
+            elif config.HSLOT_MIN_DIST * config.SQUARED_RATIO <= distance <= config.HSLOT_MAX_DIST * config.SQUARED_RATIO:
+                separating_length = config.SHORT_SEPARATOR_LENGTH * config.RATIO
+            p2_x = p0_x + image_size * separating_length * vec[1]
+            p2_y = p0_y - image_size * separating_length * vec[0]
+            p3_x = p1_x + image_size * separating_length * vec[1]
+            p3_y = p1_y - image_size * separating_length * vec[0]
         p0_x = int(round(p0_x))
         p0_y = int(round(p0_y))
         p1_x = int(round(p1_x))
@@ -105,17 +124,19 @@ def inference_slots(marking_points):
             point_j = marking_points[j]
             # Step 1: length filtration.
             distance = calc_point_squre_dist(point_i, point_j)
-            if not (config.VSLOT_MIN_DIST <= distance <= config.VSLOT_MAX_DIST
-                    or config.HSLOT_MIN_DIST <= distance <= config.HSLOT_MAX_DIST):
+            if not (config.VSLOT_MIN_DIST * config.SQUARED_RATIO <= distance <= config.VSLOT_MAX_DIST * config.SQUARED_RATIO
+                    or config.HSLOT_MIN_DIST * config.SQUARED_RATIO <= distance <= config.HSLOT_MAX_DIST * config.SQUARED_RATIO
+                    or (config.SLANT_MIN_DIST * config.SQUARED_RATIO <= distance <= config.SLANT_MAX_DIST * config.SQUARED_RATIO
+                    and point_i.type >= 0.5 and point_j.type >= 0.5)):
                 continue
             # Step 2: pass through filtration.
             if pass_through_third_point(marking_points, i, j):
                 continue
             result = pair_marking_points(point_i, point_j)
-            if result == 1:
-                slots.append((i, j))
-            elif result == -1:
-                slots.append((j, i))
+            if result[0] == 1:
+                slots.append((i, j, result[1]))
+            elif result[0] == -1:
+                slots.append((j, i, result[1]))
     return slots
 
 
@@ -168,7 +189,7 @@ def detect_image(detector, device, args):
         plot_points(image, pred_points)
         plot_slots(image, pred_points, slots)
         cv.imshow('demo', image)
-        cv.waitKey(1)
+        cv.waitKey(0)
         if args.save:
             cv.imwrite('save.jpg', image, [int(cv.IMWRITE_JPEG_QUALITY), 100])
 

@@ -3,7 +3,7 @@ import torch
 import config
 import util
 from thop import profile
-from data import get_predicted_points, match_marking_points, calc_point_squre_dist, calc_point_direction_angle
+from data import get_predicted_points, match_marking_points, calc_point_squre_dist, calc_point_direction0_angle, calc_point_direction1_angle
 from data import ParkingSlotDataset
 from model import DirectionalPointDetector
 from train import generate_objective
@@ -35,8 +35,8 @@ def collect_error(ground_truths, predictions, thresh):
         if idx >= 0:
             detected_point = predictions[idx][1]
             dists.append(calc_point_squre_dist(detected_point, ground_truth))
-            angles.append(calc_point_direction_angle(
-                detected_point, ground_truth))
+            angles.append(calc_point_direction0_angle(detected_point, ground_truth)
+                          + calc_point_direction1_angle(detected_point, ground_truth))
         else:
             continue
     return dists, angles

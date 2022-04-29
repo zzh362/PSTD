@@ -6,11 +6,14 @@ import argparse
 INPUT_IMAGE_SIZE = 512
 # 0: confidence, 1: point_shape, 2: offset_x, 3: offset_y, 4: cos(direction),
 # 5: sin(direction)
-NUM_FEATURE_MAP_CHANNEL = 6
+NUM_FEATURE_MAP_CHANNEL = 9
 # image_size / 2^5 = 512 / 32 = 16
 FEATURE_MAP_SIZE = 16
 # Threshold used to filter marking points too close to image boundary
-BOUNDARY_THRESH = 0.05
+BOUNDARY_THRESH = 0.
+# ratio = 512 / image size
+RATIO = 1.
+SQUARED_RATIO = RATIO * RATIO
 
 # Thresholds to determine whether an detected point match ground truth.
 SQUARED_DISTANCE_THRESH = 0.000277778  # 10 pixel in 600*600 image
@@ -20,9 +23,12 @@ VSLOT_MIN_DIST = 0.044771278151623496
 VSLOT_MAX_DIST = 0.1099427457599304
 HSLOT_MIN_DIST = 0.15057789144568634
 HSLOT_MAX_DIST = 0.44449496544202816
+SLANT_MIN_DIST = 0.044771278151623496
+SLANT_MAX_DIST = 0.1225
 
 SHORT_SEPARATOR_LENGTH = 0.199519231
 LONG_SEPARATOR_LENGTH = 0.46875
+SLANT_SEPARATOR_LENGTH = 0.5
 
 # angle_prediction_error = 0.1384059287593468 collected from evaluate.py
 BRIDGE_ANGLE_DIFF = 0.09757113548987695 + 0.1384059287593468
