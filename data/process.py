@@ -12,8 +12,7 @@ def calc_slant_angle(pointShape, point, vector):
         if direction_diff(vec_direct, point.direction0) < direction_diff(vec_direct, point.direction1):
             return point.direction1
         return point.direction0
-    if pointShape == PointShape.t_down or pointShape == PointShape.t_up:
-        return point.direction0
+    return point.direction0
 
 def non_maximum_suppression(pred_points):
     """Perform non-maxmum suppression on marking points."""
@@ -51,11 +50,11 @@ def get_predicted_points(prediction, thresh):
                 if not (config.BOUNDARY_THRESH <= xval <= 1-config.BOUNDARY_THRESH
                         and config.BOUNDARY_THRESH <= yval <= 1-config.BOUNDARY_THRESH):
                     continue
-                cos_value = prediction[4, i, j]
-                sin_value = prediction[5, i, j]
+                cos_value = prediction[4, i, j]*2 -1
+                sin_value = prediction[5, i, j]*2 -1
                 direction0 = math.atan2((sin_value), (cos_value))
-                cos_value = prediction[6, i, j]
-                sin_value = prediction[7, i, j]
+                cos_value = prediction[6, i, j]*2 -1
+                sin_value = prediction[7, i, j]*2 -1
                 direction1 = math.atan2((sin_value), (cos_value))
                 marking_point = MarkingPoint(
                     xval, yval, direction0, direction1, prediction[1, i, j], prediction[8, i, j])
@@ -71,6 +70,10 @@ def pass_through_third_point(marking_points, i, j):
     y_2 = marking_points[j].y
     for point_idx, point in enumerate(marking_points):
         if point_idx == i or point_idx == j:
+            continue
+        if point.type > 0.5 and marking_points[i].type < 0.5:
+            continue
+        if point.type < 0.5 and marking_points[i].type > 0.5:
             continue
         x_0 = point.x
         y_0 = point.y
@@ -90,23 +93,25 @@ def pair_marking_points_vertical(point_a, point_b):
     point_shape_a = detemine_point_shape_vertical(point_a, vector_ab)
     point_shape_b = detemine_point_shape_vertical(point_b, -vector_ab)
     if point_shape_a.value == 0 or point_shape_b.value == 0:
-        return 0
+        return 0, 0
     if point_shape_a.value == 3 and point_shape_b.value == 3:
-        return 0
+        return 0, 0
     if point_shape_a.value > 3 and point_shape_b.value > 3:
-        return 0
+        return 0, 0
     if point_shape_a.value < 3 and point_shape_b.value < 3:
-        return 0
+        return 0, 0
+    vec_direct_up = math.atan2(-vector_ab[0], vector_ab[1])
+    vec_direct_down = math.atan2(vector_ab[0], -vector_ab[1])
     if point_shape_a.value != 3:
         if point_shape_a.value > 3:
-            return 1
+            return 1, vec_direct_up
         if point_shape_a.value < 3:
-            return -1
+            return -1, vec_direct_down
     if point_shape_a.value == 3:
         if point_shape_b.value < 3:
-            return 1
+            return 1, vec_direct_up
         if point_shape_b.value > 3:
-            return -1
+            return -1, vec_direct_down
         
 
 def pair_marking_points_slant(point_a, point_b):
@@ -123,7 +128,7 @@ def pair_marking_points_slant(point_a, point_b):
         return 0, 0
     point_angle_a = calc_slant_angle(point_shape_a, point_a, vector_ab)
     point_angle_b = calc_slant_angle(point_shape_b, point_b, -vector_ab)
-    if abs(point_angle_a - point_angle_b) < config.BRIDGE_ANGLE_DIFF:
+    if abs(point_angle_a - point_angle_b) < config.SEPARATOR_ANGLE_DIFF:
         if point_shape_a.value > 3:
             return 1, ((point_angle_a + point_angle_b) / 2)
         if point_shape_a.value < 3:
@@ -132,10 +137,10 @@ def pair_marking_points_slant(point_a, point_b):
 
 def pair_marking_points(point_a, point_b):
     """See whether two marking points form a slot."""
-    if point_a.type < 0.5 and point_b.type > 0.5:
-        return 0, 0
-    if point_a.type > 0.5 and point_b.type < 0.5:
-        return 0, 0
-    if point_a.type < 0.5 and point_b.type < 0.5:
-        return pair_marking_points_vertical(point_a, point_b), 90
+    # if point_a.type < 0.5 and point_b.type > 0.5:
+    #     return 0, 0
+    # if point_a.type > 0.5 and point_b.type < 0.5:
+    #     return 0, 0
+    if point_a.type < 0.5:
+        return pair_marking_points_vertical(point_a, point_b)
     return pair_marking_points_slant(point_a, point_b)

@@ -22,6 +22,7 @@ class ParkingSlotDataset(Dataset):
     def __getitem__(self, index):
         name = self.sample_names[index]
         image = cv.imread(os.path.join(self.root, name+'.jpg'))
+
         image = self.image_transform(image)
         marking_points = []
         with open(os.path.join(self.root, name + '.json'), 'r') as file:

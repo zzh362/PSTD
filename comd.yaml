@@ -1,0 +1,7 @@
+python train.py
+
+python evaluate.py --detector_weights $DETECTOR_WEIGHTS
+python evaluate.py --eval_all True
+
+python ps_evaluate.py  --detector_weights $DETECTOR_WEIGHTS
+python ps_evaluate.py --eval_all True

@@ -1,0 +1,6 @@
+data_root: /data/cylin/zzh/work3/datasets/PSTD/original
+
+point_train: /train/corners
+point_test: /test/corners
+slot_test: /test/parkings
+img_test: /test/images

@@ -49,12 +49,12 @@ def detemine_point_shape_slant(point, vector):
     """Determine which category the point is in."""
     vec_direct = math.atan2(vector[1], vector[0])
     if point.shape < 0.5:
-        if direction_diff(vec_direct, point.direction1) < config.BRIDGE_ANGLE_DIFF \
-                or abs(direction_diff(vec_direct, point.direction1) - math.pi) < config.BRIDGE_ANGLE_DIFF:
-            if -math.pi < point.direction0 - vec_direct < 0 or point.direction0 - vec_direct > math.pi:
-                return PointShape.t_up
-            else:
-                return PointShape.t_down
+        # if direction_diff(vec_direct, point.direction1) < config.BRIDGE_ANGLE_DIFF \
+        #         or abs(direction_diff(vec_direct, point.direction1) - math.pi) < config.BRIDGE_ANGLE_DIFF:
+        if -math.pi < point.direction0 - vec_direct < 0 or point.direction0 - vec_direct > math.pi:
+            return PointShape.t_up
+        else:
+            return PointShape.t_down
         return PointShape.none
     else:
         if direction_diff(vec_direct, point.direction0) < config.BRIDGE_ANGLE_DIFF:

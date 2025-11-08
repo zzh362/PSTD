@@ -12,26 +12,29 @@ FEATURE_MAP_SIZE = 16
 # Threshold used to filter marking points too close to image boundary
 BOUNDARY_THRESH = 0.
 # ratio = 512 / image size
-RATIO = 1.
+RATIO = 1.#0.53333
 SQUARED_RATIO = RATIO * RATIO
 
 # Thresholds to determine whether an detected point match ground truth.
-SQUARED_DISTANCE_THRESH = 0.000277778  # 10 pixel in 600*600 image
+SQUARED_DISTANCE_THRESH = 0.000277778 #* 0.6 # 10 pixel in 600*600 image
+# DIRECTION_ANGLE_THRESH = 0.20757113548987695 + 0.1384059287593468#0.5235987755982988  # 30 degree in rad 20 degree
 DIRECTION_ANGLE_THRESH = 0.5235987755982988  # 30 degree in rad
+# DIRECTION_ANGLE_THRESH = 0.172  # 10 degree in rad
 
-VSLOT_MIN_DIST = 0.044771278151623496
-VSLOT_MAX_DIST = 0.1099427457599304
+VSLOT_MIN_DIST = 0.032
+VSLOT_MAX_DIST = 0.1445
 HSLOT_MIN_DIST = 0.15057789144568634
-HSLOT_MAX_DIST = 0.44449496544202816
-SLANT_MIN_DIST = 0.044771278151623496
-SLANT_MAX_DIST = 0.1225
+HSLOT_MAX_DIST = 0.48
+SLANT_MIN_DIST = 0.042
+SLANT_MAX_DIST = 0.21
 
 SHORT_SEPARATOR_LENGTH = 0.199519231
 LONG_SEPARATOR_LENGTH = 0.46875
 SLANT_SEPARATOR_LENGTH = 0.5
 
 # angle_prediction_error = 0.1384059287593468 collected from evaluate.py
-BRIDGE_ANGLE_DIFF = 0.09757113548987695 + 0.1384059287593468
+# BRIDGE_ANGLE_DIFF = 0.10757113548987695 + 0.1384059287593468
+BRIDGE_ANGLE_DIFF = 0.20757113548987695 + 0.1384059287593468
 SEPARATOR_ANGLE_DIFF = 0.284967562063968 + 0.1384059287593468
 
 SLOT_SUPPRESSION_DOT_PRODUCT_THRESH = 0.8
@@ -55,15 +58,15 @@ def add_common_arguments(parser):
 def get_parser_for_training():
     """Return argument parser for training."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_directory', required=True,
-                        help="The location of dataset.")
+    # parser.add_argument('--dataset_directory', required=True,
+    #                     help="The location of dataset.")
     parser.add_argument('--optimizer_weights',
                         help="The weights of optimizer.")
-    parser.add_argument('--batch_size', type=int, default=24,
+    parser.add_argument('--batch_size', type=int, default=12,
                         help="Batch size.")
     parser.add_argument('--data_loading_workers', type=int, default=32,
                         help="Number of workers for data loading.")
-    parser.add_argument('--num_epochs', type=int, default=20,
+    parser.add_argument('--num_epochs', type=int, default=100,
                         help="Number of epochs to train for.")
     parser.add_argument('--lr', type=float, default=1e-4,
                         help="The learning rate of back propagation.")
@@ -76,10 +79,12 @@ def get_parser_for_training():
 def get_parser_for_evaluation():
     """Return argument parser for testing."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_directory', required=True,
-                        help="The location of dataset.")
+    # parser.add_argument('--dataset_directory', required=True,
+    #                     help="The location of dataset.")
     parser.add_argument('--enable_visdom', action='store_true',
                         help="Enable Visdom to visualize training progress")
+    parser.add_argument('--eval_all', type=bool, 
+                        default=False, help='whether to evaluate all pths')
     add_common_arguments(parser)
     return parser
 
@@ -87,12 +92,14 @@ def get_parser_for_evaluation():
 def get_parser_for_ps_evaluation():
     """Return argument parser for testing."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--label_directory', required=True,
-                        help="The location of dataset.")
-    parser.add_argument('--image_directory', required=True,
-                        help="The location of dataset.")
+    # parser.add_argument('--label_directory', required=True,
+    #                     help="The location of dataset.")
+    # parser.add_argument('--image_directory', required=True,
+    #                     help="The location of dataset.")
     parser.add_argument('--enable_visdom', action='store_true',
                         help="Enable Visdom to visualize training progress")
+    parser.add_argument('--eval_all', type=bool, 
+                        default=False, help='whether to evaluate all pths')
     add_common_arguments(parser)
     return parser
 

@@ -1,0 +1,415 @@
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 138, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 138, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (pre_images, now_images,marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 27, in __getitem__
+    pre_image = image[:, 0 : self.crop_width, :]  # 左侧
+AttributeError: 'ParkingSlotDataset' object has no attribute 'crop_width'
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 138, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 114, in train_detector
+    pre_images = torch.stack(pre_images).to(device)
+TypeError: expected Tensor as element 0 in argument 0, but got numpy.ndarray
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 138, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 140, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 118, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 140, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 118, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 122, in train_detector
+    prediction_now = dp_detector(now_images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 58, in forward
+    prediction = self.predict(self.extract_feature(x[0]))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 768.00 MiB (GPU 0; 10.57 GiB total capacity; 8.80 GiB already allocated; 695.12 MiB free; 8.81 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 122, in train_detector
+    prediction_now = dp_detector(now_images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 58, in forward
+    prediction = self.predict(self.extract_feature(x[0]))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 320.00 MiB (GPU 0; 10.57 GiB total capacity; 9.22 GiB already allocated; 267.12 MiB free; 9.23 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 126, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 122, in train_detector
+    prediction_now = dp_detector(now_images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 58, in forward
+    prediction = self.predict(self.extract_feature(x[0]))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/activation.py", line 714, in forward
+    return F.leaky_relu(input, self.negative_slope, self.inplace)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/functional.py", line 1378, in leaky_relu
+    result = torch._C._nn.leaky_relu(input, negative_slope)
+RuntimeError: CUDA out of memory. Tried to allocate 144.00 MiB (GPU 0; 10.57 GiB total capacity; 9.44 GiB already allocated; 39.12 MiB free; 9.45 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 122, in train_detector
+    prediction_now = dp_detector(now_images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 58, in forward
+    prediction = self.predict(self.extract_feature(x[0]))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 56.00 MiB (GPU 0; 10.57 GiB total capacity; 9.44 GiB already allocated; 15.12 MiB free; 9.47 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 147, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 126, in train_detector
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 59, in forward
+    print(x.size())
+AttributeError: 'tuple' object has no attribute 'size'
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 60, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 60, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 63, in forward
+    prediction = self.predict(self.extract_feature(x[0]))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/batchnorm.py", line 135, in forward
+    return F.batch_norm(
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/functional.py", line 2149, in batch_norm
+    return torch.batch_norm(
+RuntimeError: CUDA out of memory. Tried to allocate 768.00 MiB (GPU 0; 10.57 GiB total capacity; 8.88 GiB already allocated; 611.12 MiB free; 8.89 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 64, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 65, in forward
+    prediction = 0.1 * prediction1 + 0.9 * prediction2
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 768.00 MiB (GPU 0; 10.57 GiB total capacity; 8.94 GiB already allocated; 551.12 MiB free; 8.95 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 63, in forward
+    prediction2 = self.predict(self.extract_feature(img))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 320.00 MiB (GPU 0; 10.57 GiB total capacity; 9.34 GiB already allocated; 147.12 MiB free; 9.35 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 63, in forward
+    prediction2 = self.predict(self.extract_feature(img))
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 395, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: CUDA out of memory. Tried to allocate 28.00 MiB (GPU 0; 10.57 GiB total capacity; 9.44 GiB already allocated; 15.12 MiB free; 9.47 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 83, in train_detector
+    dp_detector.to(device)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 673, in to
+    return self._apply(convert)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 387, in _apply
+    module._apply(fn)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 387, in _apply
+    module._apply(fn)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 387, in _apply
+    module._apply(fn)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 409, in _apply
+    param_applied = fn(param)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 671, in convert
+    return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+RuntimeError: CUDA error: out of memory
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 64, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 62, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 66, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 68, in forward
+    print(precision.shape)
+NameError: name 'precision' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 69, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 63, in forward
+    feature_now = self.extract_feature(now_img)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/activation.py", line 714, in forward
+    return F.leaky_relu(input, self.negative_slope, self.inplace)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/functional.py", line 1378, in leaky_relu
+    result = torch._C._nn.leaky_relu(input, negative_slope)
+RuntimeError: CUDA out of memory. Tried to allocate 144.00 MiB (GPU 0; 10.57 GiB total capacity; 9.39 GiB already allocated; 99.12 MiB free; 9.39 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 63, in forward
+    feature_now = self.extract_feature(now_img)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 41, in forward
+    return self.model(x[0])
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/container.py", line 119, in forward
+    input = module(input)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/batchnorm.py", line 135, in forward
+    return F.batch_norm(
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/functional.py", line 2149, in batch_norm
+    return torch.batch_norm(
+RuntimeError: CUDA out of memory. Tried to allocate 56.00 MiB (GPU 0; 10.57 GiB total capacity; 9.46 GiB already allocated; 19.12 MiB free; 9.47 GiB reserved in total by PyTorch)
