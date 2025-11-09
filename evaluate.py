@@ -49,7 +49,7 @@ def collect_error(ground_truths, predictions, thresh):
 def evaluate_detector(args, model_path=''):
     """Evaluate directional point detector."""
     args.cuda = not args.disable_cuda and torch.cuda.is_available()
-    device = torch.device('cuda:' + str('8') if args.cuda else 'cpu')
+    device = torch.device('cuda:' + str('3') if args.cuda else 'cpu')
     torch.set_grad_enabled(False)
 
     dp_detector = DirectionalPointDetector(
@@ -122,13 +122,13 @@ if __name__ == '__main__':
 
     args = config.get_parser_for_evaluation().parse_args()
     if args.eval_all:
-        file_path = "eval/ev.txt"
+        file_path = "eval/ev_attn.txt"
         log_file = open(file_path, "a")
         log_file.write('----------------start eval -----------------\n')
         max_ap = -1
         max_pth = ''
         
-        weights_folder = 'weights'
+        weights_folder = 'weights/attn'
         pth_files = [file for file in os.listdir(weights_folder) if file.endswith('.pth')]
         pth_files = sorted(pth_files, key=lambda x: os.path.getmtime(os.path.join(weights_folder, x)))
         for pth_file in pth_files:

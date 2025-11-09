@@ -41,6 +41,34 @@ class YetAnotherDarknet(nn.modules.Module):
         return self.model(x[0])
 
 
+class TemporalAttention(nn.Module):
+    """Cross-frame self-attention for temporal feature fusion."""
+    def __init__(self, dim=1024, num_heads=8):
+        super(TemporalAttention, self).__init__()
+        self.num_heads = num_heads
+        self.scale = (dim // num_heads) ** -0.5
+
+        self.query_proj = nn.Conv2d(dim, dim, kernel_size=1)
+        self.key_proj   = nn.Conv2d(dim, dim, kernel_size=1)
+        self.value_proj = nn.Conv2d(dim, dim, kernel_size=1)
+        self.out_proj   = nn.Conv2d(dim, dim, kernel_size=1)
+
+    def forward(self, feat_now, feat_pre):
+        B, C, H, W = feat_now.shape
+
+        # 1×1 conv 降维为多头形式
+        q = self.query_proj(feat_now).reshape(B, self.num_heads, C // self.num_heads, H * W)
+        k = self.key_proj(feat_pre).reshape(B, self.num_heads, C // self.num_heads, H * W)
+        v = self.value_proj(feat_pre).reshape(B, self.num_heads, C // self.num_heads, H * W)
+
+        # 注意力计算：当前帧特征对前帧特征进行查询
+        attn = torch.einsum("bnch,bnck->bnhk", q, k) * self.scale
+        attn = torch.softmax(attn, dim=-1)
+
+        # 跨帧信息聚合
+        fused = torch.einsum("bnhk,bnck->bnch", attn, v).reshape(B, C, H, W)
+        return self.out_proj(fused)
+
 class DirectionalPointDetector(nn.modules.Module):
     """Detector for point with direction."""
     def __init__(self, input_channel_size, depth_factor, output_channel_size):
@@ -54,6 +82,8 @@ class DirectionalPointDetector(nn.modules.Module):
                              kernel_size=1, stride=1, padding=0, bias=False)]
         self.predict = nn.Sequential(*layers)
 
+        self.temporal_attn = TemporalAttention(dim=1024, num_heads=8)
+
     def forward(self, *x):
 
         pre_img = x[0][:, :, :, 0:512]
@@ -62,7 +92,8 @@ class DirectionalPointDetector(nn.modules.Module):
         feature_pre = self.extract_feature(pre_img)
         feature_now = self.extract_feature(now_img)
         
-        feature = 0.1 * feature_pre + 0.9 * feature_now
+        temporal_fused = self.temporal_attn(feature_now, feature_pre)
+        feature = feature_now + 0.5 * temporal_fused
 
         prediction = self.predict(feature)
 
