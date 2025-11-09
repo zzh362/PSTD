@@ -73,7 +73,7 @@ def same_seeds(seed):
 def train_detector(args):
     """Train directional point detector."""
     args.cuda = not args.disable_cuda and torch.cuda.is_available()
-    device = torch.device('cuda:' + str('0') if args.cuda else 'cpu')
+    device = torch.device('cuda:' + str('2') if args.cuda else 'cpu')
     torch.set_grad_enabled(True)
 
     dp_detector = DirectionalPointDetector(
@@ -125,7 +125,7 @@ def train_detector(args):
                 plot_prediction(logger, images, marking_points, prediction)
         
         torch.save(dp_detector.state_dict(),
-                   'weights/dmpr_%d.pth' % (epoch_idx))
+                   'weights/attn/dmpr_%d.pth' % (epoch_idx))
         
         # torch.save(optimizer.state_dict(), 'weights/optimizer.pth')
 
