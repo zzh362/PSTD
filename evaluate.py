@@ -122,13 +122,13 @@ if __name__ == '__main__':
 
     args = config.get_parser_for_evaluation().parse_args()
     if args.eval_all:
-        file_path = "eval/ev_attn.txt"
+        file_path = "eval/ev_fusion.txt"
         log_file = open(file_path, "a")
         log_file.write('----------------start eval -----------------\n')
         max_ap = -1
         max_pth = ''
         
-        weights_folder = 'weights/attn'
+        weights_folder = 'weights/fusion'
         pth_files = [file for file in os.listdir(weights_folder) if file.endswith('.pth')]
         pth_files = sorted(pth_files, key=lambda x: os.path.getmtime(os.path.join(weights_folder, x)))
         for pth_file in pth_files:

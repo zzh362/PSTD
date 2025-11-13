@@ -457,3 +457,13 @@ Traceback (most recent call last):
   File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 98, in forward
     p
 NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 126, in forward
+    p
+NameError: name 'p' is not defined

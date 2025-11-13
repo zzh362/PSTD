@@ -69,6 +69,31 @@ class TemporalAttention(nn.Module):
         fused = torch.einsum("bnhk,bnck->bnch", attn, v).reshape(B, C, H, W)
         return self.out_proj(fused)
 
+
+class StructureAwareTemporalFusion(nn.Module):
+    def __init__(self, dim):
+        super().__init__()
+        self.global_gate = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Conv2d(dim, dim, 1),
+            nn.Sigmoid()
+        )
+        self.structure_mask = nn.Sequential(
+            nn.Conv2d(dim, dim // 8, 3, padding=1),
+            nn.BatchNorm2d(dim // 8),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(dim // 8, 1, 1),   # 单通道掩码
+            nn.Sigmoid()
+        )
+
+    def forward(self, feat_now, feat_prev_attn):
+        G_c = self.global_gate(feat_now)          # [B, C, 1, 1]
+        M_s = self.structure_mask(feat_now)       # [B, 1, H, W]
+        weight = G_c * M_s                        # 广播
+        fused = weight * feat_prev_attn + (1 - weight) * feat_now
+        return fused
+
+
 class DirectionalPointDetector(nn.modules.Module):
     """Detector for point with direction."""
     def __init__(self, input_channel_size, depth_factor, output_channel_size):
@@ -84,6 +109,8 @@ class DirectionalPointDetector(nn.modules.Module):
 
         self.temporal_attn = TemporalAttention(dim=1024, num_heads=8)
 
+        self.temporal_fusion = StructureAwareTemporalFusion(dim=1024)
+
     def forward(self, *x):
 
         pre_img = x[0][:, :, :, 0:512]
@@ -92,8 +119,12 @@ class DirectionalPointDetector(nn.modules.Module):
         feature_pre = self.extract_feature(pre_img)
         feature_now = self.extract_feature(now_img)
         
-        temporal_fused = self.temporal_attn(feature_now, feature_pre)
-        feature = feature_now + 0.5 * temporal_fused
+        # ==== 结构感知时序融合 ====
+        temporal_fused = self.temporal_attn(feature_now, feature_pre) # 先做时序注意力对齐
+        feature = self.temporal_fusion(feature_now, temporal_fused) # 再做结构感知融合
+        
+        # print(feature.shape)
+        # p
 
         prediction = self.predict(feature)
 
