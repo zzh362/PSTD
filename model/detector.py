@@ -122,7 +122,7 @@ class DirectionalPointDetector(nn.modules.Module):
         # ==== 结构感知时序融合 ====
         temporal_fused = self.temporal_attn(feature_now, feature_pre) # 先做时序注意力对齐
         feature = self.temporal_fusion(feature_now, temporal_fused) # 再做结构感知融合
-        
+
         # print(feature.shape)
         # p
 

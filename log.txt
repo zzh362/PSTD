@@ -467,3 +467,225 @@ Traceback (most recent call last):
   File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 126, in forward
     p
 NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 146, in forward
+    aligned_prev = self.geometry_align(feature_now, feature_pre)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 947, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'DirectionalPointDetector' object has no attribute 'geometry_align'
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 148, in forward
+    aligned_prev = self.geometry_align(feature_now, feature_pre)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 59, in forward
+    grid_y, grid_x = torch.meshgrid(torch.linspace(-1, 1, H, device=flow.device),
+TypeError: meshgrid() got an unexpected keyword argument 'indexing'
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 153, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 119, in train_detector
+    loss.backward(gradient)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/tensor.py", line 245, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/autograd/__init__.py", line 145, in backward
+    Variable._execution_engine.run_backward(
+RuntimeError: CUDA out of memory. Tried to allocate 12.00 MiB (GPU 1; 10.57 GiB total capacity; 9.46 GiB already allocated; 3.12 MiB free; 9.48 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 116, in train_detector
+    prediction = dp_detector(images)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/model/detector.py", line 146, in forward
+    p
+NameError: name 'p' is not defined
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 107, in train_detector
+    data_loader = DataLoader(data.ParkingSlotDataset(path),
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 266, in __init__
+    sampler = RandomSampler(dataset, generator=generator)  # type: ignore
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/sampler.py", line 102, in __init__
+    if not isinstance(self.num_samples, int) or self.num_samples <= 0:
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/sampler.py", line 110, in num_samples
+    return len(self.data_source)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 89, in __len__
+    return len(self.sample_names)
+AttributeError: 'ParkingSlotDataset' object has no attribute 'sample_names'
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now, marking_points = self.apply_augmentation(pre, now, marking_points)
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 97, in apply_augmentation
+    p.x = 1024 - p.x  # 注意整图宽度，因为点是基于拼接图的坐标
+AttributeError: can't set attribute
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now = self.apply_augmentation(pre, now)
+AttributeError: 'ParkingSlotDataset' object has no attribute 'apply_augmentation'
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now = self.apply_augmentation(pre, now)
+TypeError: apply_augmentation() takes 2 positional arguments but 3 were given
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now, marking_points = self.apply_augmentation(pre, now, marking_points)
+TypeError: apply_augmentation() takes 3 positional arguments but 4 were given
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now, marking_points = self.apply_augmentation_safe(pre, now, marking_points)
+TypeError: apply_augmentation_safe() takes 3 positional arguments but 4 were given
+
+Traceback (most recent call last):
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 136, in <module>
+    train_detector(config.get_parser_for_training().parse_args())
+  File "/data/cylin/zzh/work3/code/DMPR-PST/train.py", line 113, in train_detector
+    for iter_idx, (images, marking_points) in enumerate(data_loader):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 517, in __next__
+    data = self._next_data()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1199, in _next_data
+    return self._process_data(data)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1225, in _process_data
+    data.reraise()
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/_utils.py", line 429, in reraise
+    raise self.exc_type(msg)
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 202, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/cylin/anaconda3/envs/zzh/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/cylin/zzh/work3/code/DMPR-PST/data/dataset.py", line 77, in __getitem__
+    pre, now, marking_points = self.apply_augmentation_safe(pre, now, marking_points)
+TypeError: apply_augmentation_safe() takes 3 positional arguments but 4 were given
+
